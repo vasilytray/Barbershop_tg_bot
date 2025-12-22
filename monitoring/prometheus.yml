@@ -1,0 +1,29 @@
+# ./monitoring/prometheus.yml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Правила оповещений
+rule_files:
+  # - "alerts.yml"
+
+# Конфигурация сбора метрик
+scrape_configs:
+  # Prometheus сам себя
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # PostgreSQL - основная БД
+  - job_name: 'postgres-app'
+    static_configs:
+      - targets: ['postgres-app:9187']  # postgres_exporter порт
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # PostgreSQL - БД планировщика
+  - job_name: 'postgres-scheduler'
+    static_configs:
+      - targets: ['postgres-scheduler:9188']  # другой порт для второго экспортера
+    scrape_interval: 30s
+    metrics_path: /metrics

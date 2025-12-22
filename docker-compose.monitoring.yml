@@ -1,0 +1,39 @@
+# docker-compose.monitoring.yml
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-pet
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEF_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEF_PASS}
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - pet-app-network
+
+  # Prometheus + Grafana для мониторинга
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-pet
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - pet-app-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana-pet
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASS}
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3001:3000"
+    networks:
+      - pet-app-network
