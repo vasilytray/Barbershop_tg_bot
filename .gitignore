@@ -29,3 +29,5 @@ Lib/
 **/Lib/
 Include/
 **/Include/
+tests/
+check-*.*
