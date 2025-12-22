@@ -3,7 +3,7 @@ from typing import Optional, List
 from sqlalchemy import Integer, Text, ForeignKey, DateTime, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import time, date
-from app.models.bookings import Booking
+# from app.models.bookings import Booking
 from app.models.specializations import Specialization
 from app.dao.database import Base, int_pk, created_at, updated_at, str_uniq, str_null_true
 
@@ -22,7 +22,7 @@ class Master(Base):
     photo: Mapped[str]
 
     # Relationships
-    bookings: Mapped[List["Booking"]] = relationship(back_populates="doctor")
+    bookings: Mapped[List["Booking"]] = relationship(back_populates="master")
 
     specialization: Mapped["Specialization"] = relationship("Specialization", back_populates="doctors",
                                                             lazy="joined")

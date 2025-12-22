@@ -3,7 +3,7 @@ from typing import Optional, List
 from sqlalchemy import Integer, Text, ForeignKey, DateTime, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import time, date
-from app.models.bookings import Booking
+# from app.models.bookings import Booking
 from app.dao.database import Base, int_pk, created_at, updated_at, str_uniq, str_null_true
 
 
