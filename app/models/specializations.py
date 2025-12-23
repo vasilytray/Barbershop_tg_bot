@@ -16,3 +16,4 @@ class Specialization(Base):
     specialization: Mapped[str]
 
     master: Mapped[List["Master"]] = relationship(back_populates="specialization")
+    services: Mapped[List["Service"]] = relationship(back_populates="specialization")

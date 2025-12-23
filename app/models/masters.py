@@ -23,6 +23,7 @@ class Master(Base):
 
     # Relationships
     bookings: Mapped[List["Booking"]] = relationship(back_populates="master")
+    services: Mapped[List["Service"]] = relationship(back_populates="master")
 
     specialization: Mapped["Specialization"] = relationship("Specialization", back_populates="doctors",
                                                             lazy="joined")
